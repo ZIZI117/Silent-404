@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    <style>
+        /* Estética Táctica y Oscura */
+        body {
+            background-color: #000;
+            color: #d3d3d3;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            user-select: none; /* Nadie puede copiar texto fácilmente */
+        }
+
+        .error-container {
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 60px;
+            margin-bottom: 5px;
+            letter-spacing: 10px;
+            color: #fff;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        p.status {
+            font-size: 18px;
+            opacity: 0.7;
+            margin-top: 0;
+        }
+
+        .divider {
+            border: 0.5px solid #222;
+            width: 350px;
+            margin: 20px auto;
+        }
+
+        /* Reemplazamos Ubuntu por SILENT */
+        .server-info {
+            font-size: 13px;
+            color: #444; /* Súper sutil */
+            letter-spacing: 2px;
+        }
+
+        /* --- EFECTO DE DISTORSIÓN (GLITCH) --- */
+        /* Esta clase se activa con Javascript */
+        .glitch-active {
+            animation: glitch-anim 0.3s infinite;
+            filter: hue-rotate(90deg) contrast(150%);
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-5px, 5px) skew(5deg); }
+            40% { transform: translate(5px, -5px) skew(-5deg); }
+            60% { transform: translate(-10px, 0px) rotate(1deg); }
+            80% { transform: translate(10px, 5px) scale(1.1); }
+            100% { transform: translate(0); }
+        }
+
+        /* --- PANTALLA DEL CÓDIGO FINAL (OCULTA) --- */
+        #final-screen {
+            display: none; /* Invisible al principio */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: #0f0; /* Verde Matrix */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-size: 16px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #final-screen .code-box {
+            border: 1px solid #0f0;
+            padding: 20px;
+            background-color: rgba(0, 20, 0, 0.5);
+            margin-top: 20px;
+            word-break: break-all; /* Para que el Base64 no se corte */
+            max-width: 80%;
+        }
+
+        .blink {
+            animation: blink-anim 1s infinite;
+        }
+        @keyframes blink-anim { 50% { opacity: 0; } }
+
+    </style>
+</head>
+<body id="main-body">
+
+    <div class="error-container" id="error-content">
+        <h1>404</h1>
+        <p class="status">Not Found</p>
+        <div class="divider"></div>
+        <p class="server-info">SVR: SILENT//404 [CORE_v1.0]</p>
+    </div>
+
+    <div id="final-screen">
+        <div>[SISTEMA CORRUPTO] - EXTRACCIÓN DE DATOS PRIORITARIA</div>
+        <div class="code-box">
+            --- PROTOCOLO SILENT 404 ---<br><br>
+            El ruido miente. Solo el silencio es real.<br>
+            Has activado la contramedida. Tu tiempo se agota.<br><br>
+            Descifra el primer vector (Base64):<br><br>
+            <span style="color: #fff; font-weight: bold;">
+                aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L05pSlp0b0gyMzQ=
+            </span>
+            <br><br>
+            La fase 2 requiere esta clave.<br>
+            El sistema se autocerrará en <span id="countdown" class="blink">10</span>...
+        </div>
+    </div>
+
+    <script>
+        const body = document.getElementById('main-body');
+        const errorContent = document.getElementById('error-content');
+        const finalScreen = document.getElementById('final-screen');
+        const countdownEl = document.getElementById('countdown');
+
+        let isTriggered = false;
+        let countdownTime = 10;
+        let countdownInterval;
+
+        // Función que activa el caos y muestra el código
+        function triggerProtocol() {
+            if (isTriggered) return; // No repetir si ya se activó
+            isTriggered = true;
+
+            // 1. Iniciar distorsión visual (Glitch)
+            body.classList.add('glitch-active');
+
+            // 2. Esperar 1.5 segundos de distorsión y mostrar la pantalla final
+            setTimeout(() => {
+                errorContent.style.display = 'none'; // Esconder el error 404
+                body.classList.remove('glitch-active'); // Quitar glitch para que sea legible
+                finalScreen.style.display = 'flex'; // Mostrar código verde
+
+                // 3. Iniciar la cuenta regresiva para el "autocierre"
+                startCountdown();
+            }, 1500);
+        }
+
+        function startCountdown() {
+            countdownInterval = setInterval(() => {
+                countdownTime--;
+                countdownEl.innerText = countdownTime;
+
+                if (countdownTime <= 0) {
+                    clearInterval(countdownInterval);
+                    // 4. EL AUTOCIERRE
+                    // Nota: Los navegadores modernos no permiten cerrar la pestaña con JS 
+                    // a menos que el usuario la haya abierto con JS.
+                    // Para que parezca un error real, vamos a "borrar" la página entera.
+                    document.body.innerHTML = ''; 
+                    document.body.style.backgroundColor = '#000';
+                    // O opcionalmente, redireccionar a una página negra total:
+                    // window.location.href = "about:blank"; 
+                }
+            }, 1000);
+        }
+
+        // --- LOS DISPARADORES (TRIGGERS) ---
+
+        // A. Detectar cualquier CLICK del mouse
+        window.addEventListener('click', triggerProtocol);
+
+        // B. Detectar cualquier TECLA presionada
+        window.addEventListener('keydown', triggerProtocol);
+
+    </script>
+
+</body>
+</html>
