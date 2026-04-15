@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>SVR_OVERRIDE</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Mantiene la pantalla fija mientras el texto cae */
+        }
+        #header {
+            padding: 15px;
+            color: white;
+            font-size: 1.2em;
+            border-bottom: 1px solid #00ff00;
+            background: black;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        #matrix {
+            padding: 10px;
+            font-size: 12px;
+            line-height: 1.1;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">> Perfecto pasaste lo numero 1...</div>
+    <div id="matrix"></div>
+
+    <script>
+        const matrix = document.getElementById('matrix');
+        
+        // Esta es la dirección de la Fase 3 en Base64
+        const clave = "aHR0cHM6Ly96aXppMTE3LmdpdGh1Yi5pby9TaWxlbnQtNDA0L2Zhc2UtZmluYWwuaHRtbA== "; 
+
+        function rain() {
+            // Genera la línea de código repetido
+            const line = clave.repeat(10) + "<br>";
+            matrix.innerHTML += line;
+
+            // Hace que la pantalla baje sola para seguir la lluvia
+            window.scrollTo(0, document.body.scrollHeight);
+
+            // Optimización para que no se tilde la PC o el celu
+            if (matrix.innerHTML.length > 8000) {
+                matrix.innerHTML = matrix.innerHTML.substring(2000);
+            }
+        }
+        
+        // Velocidad de la lluvia (30ms = Muy rápido)
+        setInterval(rain, 30);
+    </script>
+</body>
+</html>
